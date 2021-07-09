@@ -1,23 +1,20 @@
 import express from "express";
+import images from "./routes/images";
+import logger from "./middleware/logger";
 
 const app = express();
 const PORT = 3000;
+const middleware = [logger, express.json(), express.urlencoded()];
 
-const logger = (
-    req: express.Request,
-    res: express.Response,
-    next: express.NextFunction
-): void => {
-    console.log(`inside the logger function. `);
-    console.log(`current path is: ${req.path}`);
-    next();
-};
+// middleware
+app.use(middleware);
 
-app.use(logger);
-
+// routing
 app.get("/test", (req, res) => {
-    res.send("200, OK. ");
+    console.log(`test from domain: ${req.hostname}`);
+    res.status(204).send("in test endpoint. ");
 });
+app.use("/app", images);
 
 app.listen(PORT, () => {
     console.log(`app listening at http://localhost:${PORT}`);

@@ -2,7 +2,9 @@
     "env": {
         "browser": true,
         "commonjs": true,
-        "es2021": true
+        "es2021": true,
+        "jasmine": true,
+        "node": true
     },
     "extends": [
         "standard"
@@ -14,5 +16,6 @@
         "semi": [2, "always"],
         "quotes": [2, "double"],
         "indent": ["error", 4]
-    }
+    },
+    "parser":"babel-eslint"
 }
