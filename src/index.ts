@@ -4,7 +4,7 @@ import logger from "./middleware/logger";
 
 const app = express();
 const PORT = 3000;
-const middleware = [logger, express.json(), express.urlencoded()];
+const middleware = [logger, express.json(), express.urlencoded({extended:false})];
 
 // middleware
 app.use(middleware);
