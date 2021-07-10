@@ -1,13 +1,16 @@
 import sharp from "sharp";
 import path from "path";
+import { promises as fs } from "fs";
 
 const folder = path.join(__dirname, "../../public/assets");
 
-const processImage = async (
+const createThumbnail = async (
     fileName: string,
     width: number,
     height: number
 ) => {
+    // in the future, consider to apply inversion of control, in order to scale up later.
+
     const file = path.join(folder, `/full/${fileName}.jpg`);
     const thumb = path.join(folder, `/thumb/${fileName}_thumb.jpg`);
 
@@ -15,13 +18,20 @@ const processImage = async (
         sharp(file)
             .resize(width, height)
             .toFile(thumb, err => {
-                // output.jpg is a 300 pixels wide and 200 pixels high image
-                // containing a scaled and cropped version of input.jpg
-
                 if (err == null) resolve();
                 else reject(new Error(err.message));
             });
     });
 };
 
-export default processImage;
+const accessImage = async (fileName: string, width: number, height: number) => {
+    const thumb = path.join(folder, `/thumb/${fileName}_thumb.jpg`);
+    try {
+        await fs.access(thumb);
+    } catch (err) {
+        await createThumbnail(fileName, width, height);
+    }
+    return fs.readFile(thumb);
+};
+
+export { accessImage, createThumbnail };

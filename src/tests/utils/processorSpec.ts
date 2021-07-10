@@ -1,4 +1,4 @@
-import processImage from "../../utils/processor";
+import { accessImage, createThumbnail } from "../../utils/processor";
 import { promises as fs } from "fs";
 import path from "path";
 
@@ -7,28 +7,40 @@ describe("processor.ts: testing processor", () => {
     const height = 100;
     describe("testing the case, when file name is correct", async () => {
         const filename = "fjord";
-        const thumb = path.join(
-            __dirname,
-            `../../../public/assets/thumb/${filename}_thumb.jpg`
-        );
+        const anotherFile = "icelandwaterfall";
+        const pathToThumb = (file: string): string =>
+            path.join(
+                __dirname,
+                `../../../public/assets/thumb/${file}_thumb.jpg`
+            );
 
-        afterAll(function() {
+        const thumb = pathToThumb(filename);
+        const anotherthumb = pathToThumb(anotherFile);
+
+        afterAll(async function() {
             // if it throw error, it means file is not added. which is impossible.
-            fs.access(thumb).then(function() {
-                fs.unlink(thumb);
-            });
+            await fs.unlink(thumb);
+            await fs.unlink(anotherthumb);
         });
 
-        it("processImage should work, when file name is correct", async () => {
+        it("createThumbnail should work, when file name is correct", async () => {
             // pass when it does not throw error
-            await processImage(filename, width, height);
+            await createThumbnail(filename, width, height);
+            // after creating it, thumb shall be accessed
+            await fs.access(thumb);
+        });
+
+        it("should succesfully get data from accessImage()", async () => {
+            await accessImage(anotherFile, width, height).then(stream => {
+                expect(stream).toBeTruthy();
+            });
         });
     });
 
     describe("testing the case, when file name is incorrect", async () => {
         const filename = "a_wrong_name";
-        it("processImage should break, when file name is incorrect", async () => {
-            processImage(filename, width, height).catch(error => {
+        it("createThumbnail should break, when file name is incorrect", async () => {
+            await createThumbnail(filename, width, height).catch(error => {
                 expect(error.message).toBe("Input file is missing");
             });
         });
