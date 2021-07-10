@@ -44,6 +44,24 @@ npm run jasmine
 ```
 npm run start
 ```
+App will run in localhost: 3000
+
+## Testing Endpoints
+```
+Visiting <http://localhost:3000/app/images/?image=CUSTOMIZED_NAME&width=CUSTOMIZED_WIDTH&height=CUSTOMIZED_HEIGHT>
+with any positive number CUSTOMIZED_WIDTH and CUSTOMIZED_HEIGHT
+available CUSTOMIZED_NAME are 'encenadaport', 'fjord', 'icelandwaterfall', 'palmtunnel', 'santamonica'
+```
+
+```
+Unexpected endpoint are properly handled. 
+try the following endpoints. 
+<http://localhost:3000/>
+<http://localhost:3000/app/>
+<http://localhost:3000/app/images/>
+<http://localhost:3000/app/images/?image=WRONG_NAME&width=INVALID_WIDTH&height=MISSING_HEIGHT>
+```
+
 
 ## Version Control
 
