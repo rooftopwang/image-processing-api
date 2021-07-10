@@ -15,7 +15,6 @@ app.use(middleware);
 
 // routing
 app.get("/test", (req, res) => {
-    console.log(`test from domain: ${req.hostname}`);
     res.status(204).send("in test endpoint. ");
 });
 app.use("/app", images);
