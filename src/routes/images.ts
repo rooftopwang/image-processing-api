@@ -23,8 +23,12 @@ images.get("/images", async (req, res) => {
         res.setHeader("content-type", "image/jpg");
         res.end(stream, "binary");
     } catch (err) {
-        res.send("404 Not Found. ");
+        res.status(404).send("404 Not Found. ");
     }
+});
+
+images.get("*", (req, res) => {
+    res.status(400).send("400 Not a Valid Request. ");
 });
 
 export default images;

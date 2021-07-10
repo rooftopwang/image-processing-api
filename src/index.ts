@@ -1,4 +1,4 @@
-import express from "express";
+import express, { response } from "express";
 import images from "./routes/images";
 import logger from "./middleware/logger";
 
@@ -18,6 +18,10 @@ app.get("/test", (req, res) => {
     res.status(204).send("in test endpoint. ");
 });
 app.use("/app", images);
+
+app.get("*", (req, res) => {
+    res.status(400).send("400 Bad Request. ");
+});
 
 app.listen(PORT, () => {
     console.log(`app listening at http://localhost:${PORT}`);

@@ -10,4 +10,9 @@ describe("images.ts: testing endpoints", () => {
         const response = await request(app).get("/app/test");
         expect(response.status).toBe(400);
     });
+
+    it("should not work by visiting /randompath", async () => {
+        const response = await request(app).get("/app/randompath");
+        expect(response.status).toBe(400);
+    });
 });
