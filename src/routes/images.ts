@@ -23,7 +23,7 @@ images.get("/images", async (req, res) => {
         res.setHeader("content-type", "image/jpg");
         res.end(stream, "binary");
     } catch (err) {
-        res.status(404).send("404 Not Found. ");
+        res.status(404).send("404 Not Found. Please check your file name and sizes. ");
     }
 });
 
