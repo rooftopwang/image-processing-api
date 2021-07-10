@@ -11,7 +11,7 @@ describe("processor.ts: testing processor", () => {
         const pathToThumb = (file: string): string =>
             path.join(
                 __dirname,
-                `../../../public/assets/thumb/${file}_thumb.jpg`
+                `../../../public/assets/thumb/${file}_${width}_${height}.jpg`
             );
 
         const thumb = pathToThumb(filename);

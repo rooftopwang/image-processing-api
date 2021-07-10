@@ -8,11 +8,14 @@ const createThumbnail = async (
     fileName: string,
     width: number,
     height: number
-) => {
+): Promise<void> => {
     // in the future, consider to apply inversion of control, in order to scale up later.
 
     const file = path.join(folder, `/full/${fileName}.jpg`);
-    const thumb = path.join(folder, `/thumb/${fileName}_thumb.jpg`);
+    const thumb = path.join(
+        folder,
+        `/thumb/${fileName}_${width}_${height}.jpg`
+    );
 
     return new Promise<void>(function(resolve, reject) {
         sharp(file)
@@ -24,8 +27,15 @@ const createThumbnail = async (
     });
 };
 
-const accessImage = async (fileName: string, width: number, height: number) => {
-    const thumb = path.join(folder, `/thumb/${fileName}_thumb.jpg`);
+const accessImage = async (
+    fileName: string,
+    width: number,
+    height: number
+): Promise<Buffer> => {
+    const thumb = path.join(
+        folder,
+        `/thumb/${fileName}_${width}_${height}.jpg`
+    );
     try {
         await fs.access(thumb);
     } catch (err) {
