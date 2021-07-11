@@ -12,18 +12,20 @@ images.get("/images", async (req, res) => {
     const { image, width, height } = params;
 
     try {
-        ValidateFileName(image);
+        const file = ValidateFileName(image);
         ValidateNumberAsString(width);
         ValidateNumberAsString(height);
         const stream = await accessImage(
-            image,
+            file,
             parseInt(width),
             parseInt(height)
         );
         res.setHeader("content-type", "image/jpg");
         res.end(stream, "binary");
     } catch (err) {
-        res.status(404).send("404 Not Found. Please check your file name and sizes. ");
+        res.status(404).send(
+            "404 Not Found. Please check your file name and sizes. "
+        );
     }
 });
 
