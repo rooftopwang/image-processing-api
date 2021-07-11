@@ -50,7 +50,9 @@ App will run in localhost: 3000
 ```
 Visiting <http://localhost:3000/app/images/?image=CUSTOMIZED_NAME&width=CUSTOMIZED_WIDTH&height=CUSTOMIZED_HEIGHT>
 with any positive number CUSTOMIZED_WIDTH and CUSTOMIZED_HEIGHT
-available CUSTOMIZED_NAME are 'encenadaport', 'fjord', 'icelandwaterfall', 'palmtunnel', 'santamonica'
+available CUSTOMIZED_NAME are 'encenadaport.jpg', 'fjord.jpg', 'icelandwaterfall.jpg', 'palmtunnel.jpg', 'santamonica.jpg'
+
+example: `http://localhost:3000/app/images/?image=fjord.jpg&width=300&height=200`
 ```
 
 ```
