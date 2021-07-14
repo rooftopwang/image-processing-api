@@ -1,13 +1,13 @@
-import { Router } from "express";
+import { Router, Request, Response } from "express";
 import IRequestParams from "../utils/IRequestParams";
 import { ValidateNumberAsString, ValidateFileName } from "../utils/validator";
 import { accessImage } from "../utils/processor";
 const images = Router();
 
-images.get("/test", (req, res) => {
+images.get("/test", (req: Request, res: Response): void => {
     res.status(400).send(`testing endpoint ${req.path}`);
 });
-images.get("/images", async (req, res) => {
+images.get("/images", async (req: Request, res: Response): Promise<void> => {
     const params = (req.query as unknown) as IRequestParams;
     const { image, width, height } = params;
 
@@ -29,7 +29,7 @@ images.get("/images", async (req, res) => {
     }
 });
 
-images.get("*", (req, res) => {
+images.get("*", (req: Request, res: Response): void => {
     res.status(400).send("400 Not a Valid Request. ");
 });
 
